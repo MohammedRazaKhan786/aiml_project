@@ -106,23 +106,26 @@ if page == "Dashboard":
     question = st.text_input("Ask Anything")
 
     if st.button("Send"):
-
+    
         with st.spinner("Thinking..."):
-
-            response = client.chat.completions.create(
-                model="meta-llama/Llama-3.1-8B-Instruct",
-                messages=[
-                    {
-                        "role": "user",
-                        "content": question
-                    }
-                ],
-                max_tokens=800
-            )
-
-            answer = response.choices[0].message.content
-
-            st.write(answer)
+    
+            try:
+                response = client.chat.completions.create(
+                    model="meta-llama/Llama-3.1-8B-Instruct",
+                    messages=[
+                        {
+                            "role": "user",
+                            "content": question
+                        }
+                    ],
+                    max_tokens=800
+                )
+    
+                answer = response.choices[0].message.content
+                st.write(answer)
+    
+            except Exception as e:
+                 st.error(f"Error: {e}")
 
 # ---------------------------
 # Career Roadmap
